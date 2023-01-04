@@ -1,0 +1,133 @@
+body {
+  font-family: "Martel", serif;
+}
+h1 {
+  font-size: 25px;
+  font-weight: 800;
+  display: inline;
+  color: #063150;
+}
+.mainDiv {
+  display: block;
+  margin: 0 auto;
+  width: 630px;
+  border: 3px solid rgb(60, 60, 60);
+  border-radius: 12px;
+}
+.textInput {
+  font-weight: 500;
+  height: 45px;
+  width: 350px;
+  font-size: 23px;
+  border-color: #006ec5;
+  padding: 0 20px 0 50px;
+}
+.textInput::placeholder {
+  font-size: 20px;
+}
+.btnSearch {
+  width: 30px;
+}
+.current {
+  margin-left: 5px;
+  width: 70px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #006ec5;
+  background-color: white;
+  border: 3px solid rgb(0, 110, 197);
+  border-radius: 2rem;
+  padding: 8px 2px 8px 2px;
+  transition: all 200ms ease;
+  box-shadow: rgba(37, 39, 89, 0.08) 0px 8px 8px 0;
+}
+.current:hover {
+  color: white;
+  background-color: #006ec5;
+  border: 3px solid #006ec5;
+}
+.cload {
+  width: 50px;
+}
+
+.input-icons {
+  width: auto;
+}
+
+.icon {
+  position: absolute;
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 25px;
+  color: #006ec5;
+}
+.current-temp {
+  font-size: 30px;
+  display: block;
+  margin: 0 auto;
+  text-align: right;
+}
+.Celsius {
+  font-size: 15px;
+  padding-left: 5px;
+}
+.fahrenheit {
+  font-size: 15px;
+
+  padding-right: 8px;
+}
+.right-div {
+  text-align: right;
+}
+.middle-description {
+  font-size: 16px;
+  color: rgb(60, 60, 60);
+}
+.date-class {
+  text-align: right;
+  padding: 0;
+  font-weight: 800;
+  font-size: 16px;
+  color: rgb(10, 10, 10);
+}
+.right-description {
+  text-align: right;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(10, 10, 10);
+  text-transform: capitalize;
+}
+.province {
+  font-size: 15px;
+  font-weight: 800;
+}
+.circle-btn {
+  background-color: white;
+  border: 3px solid #006ec5;
+  width: 80px;
+  height: 80px;
+  border-radius: 60%;
+  font-size: 50px;
+  padding: 5px 0 0 0;
+}
+.week-div {
+  text-align: center;
+}
+.week-day {
+  font-size: 14px;
+  font-weight: 900;
+  color: rgb(60, 60, 60);
+}
+.week-temp1,
+.week-temp2 {
+  font-size: 14px;
+  font-weight: 900;
+}
+.week-temp1 {
+  color: rgb(30, 30, 30);
+}
+.week-temp2 {
+  color: rgb(90, 90, 90);
+  padding-left: 8px;
+}
