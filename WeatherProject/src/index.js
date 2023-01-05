@@ -26,17 +26,16 @@ setDate();
 function changeCity(event) {
   event.preventDefault();
   setDate();
-
+  currentIsCelsius = 1;
+  oldtemp = 0;
   let searchInput = document.querySelector("#city-search");
   let apiKey = "bb0df6985c2eab6a171d64a6bacbb4e1";
   searchInput = searchInput.value;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${searchInput}`;
-  console.log(apiUrl);
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTempreture);
 }
 let searchForm = document.querySelector("#search-form");
-console.log(searchForm);
-if (searchForm) searchForm.addEventListener("submit", changeCity);
+searchForm.addEventListener("submit", changeCity);
 
 let currentIsCelsius = 1;
 let oldtemp = 0;
@@ -45,7 +44,7 @@ function changetempToF(event) {
   event.preventDefault();
   let currentTemp = document.querySelector("#current-degree");
   if (currentTemp.innerHTML && currentIsCelsius === 1) {
-    let toF = currentTemp.innerHTML * (9 / 5) + 32;
+    let toF = parseInt(currentTemp.innerHTML) * (9 / 5) + 32;
     oldtemp = toF;
     currentTemp.innerHTML = Math.round(toF);
     currentIsCelsius = 0;
@@ -67,6 +66,7 @@ let linkF = document.querySelector("#fahrenheit");
 linkF.addEventListener("click", changetempToF);
 
 function showTempreture(response) {
+  event.preventDefault();
   let currentDegree = document.querySelector("#current-degree");
   console.log(response.data);
   currentDegree.innerHTML = Math.round(response.data.main.temp);
@@ -83,8 +83,6 @@ function showTempreture(response) {
 function showPosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  console.log(latitude);
-  console.log(longitude);
   let apiKey = "bb0df6985c2eab6a171d64a6bacbb4e1";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${latitude}&lon=${longitude}`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTempreture);
@@ -95,6 +93,9 @@ function showFirst() {
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTempreture);
 }
 function setCurrent() {
+  event.preventDefault();
+  currentIsCelsius = 1;
+  oldtemp = 0;
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 let currentBtn = document.querySelector("#current-location");
