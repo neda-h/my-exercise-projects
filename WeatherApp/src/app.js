@@ -1,3 +1,9 @@
+let input_element = document.querySelector("#search-text");
+input_element.setAttribute("value", input_element.value);
+input_element.addEventListener("keyup", () => {
+  input_element.setAttribute("value", input_element.value);
+});
+
 function formatDate(timespan) {
   let date = new Date(timespan);
   let days = [
@@ -45,7 +51,4 @@ function showTempreture(response) {
 let apiKey = "af253f0a8o48e8b1400ef66f4294tdf3";
 let apiUrl = "https://api.shecodes.io/weather/v1/forecast?units=metric";
 
-function showFirst() {
-  axios.get(`${apiUrl}&query=paris&key=${apiKey}`).then(showTempreture);
-}
-showFirst();
+axios.get(`${apiUrl}&query=paris&key=${apiKey}`).then(showTempreture);

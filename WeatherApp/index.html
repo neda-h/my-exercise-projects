@@ -13,12 +13,46 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <script
+      src="https://kit.fontawesome.com/5e269dd266.js"
+      crossorigin="anonymous"
+    ></script>
+
     <link rel="stylesheet" href="src/styles.css" />
   </head>
   <body>
     <div class="container">
       <div class="weather-wrapper">
         <div class="weather">
+          <form id="search-form" class="mb-3">
+            <div class="row">
+              <div class="col-9 input-contain">
+                <input
+                  autocomplete="off"
+                  type="search"
+                  id="search-text"
+                  class="form-control"
+                  aria-labelledby="placeholder-search-text"
+                />
+                <label
+                  class="placeholder-text"
+                  for="search-text"
+                  id="placeholder-search-text"
+                >
+                  <div class="text">City Name...</div>
+                </label>
+              </div>
+              <div class="col-3">
+                <input
+                  type="submit"
+                  id="search-button"
+                  value="Search"
+                  class="btn btn-primary w-75 search-button"
+                />
+              </div>
+            </div>
+          </form>
+
           <div class="row">
             <div class="mb-3">
               <h1 id="city"></h1>
@@ -33,11 +67,7 @@
             <div class="row">
               <div class="col-6">
                 <div class="d-flex weather-temperature">
-                  <img
-                    src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-                    alt="Clear"
-                    id="icon"
-                  />
+                  <img id="icon" />
                   <div>
                     <strong id="temperature" class="temp"></strong
                     ><span class="units">°C | °F</span>
@@ -54,12 +84,26 @@
             <div class="weather-forecast" id="forecast"></div>
           </div>
         </div>
-        <small
-          ><a
-            href="https://github.com/neda-h/my-exercise-projects/tree/main/WeatherProject"
-            >Open-source code </a
-          >by Neda Hosseiny</small
-        >
+        <div>
+          <ul class="wrapper">
+            <li class="icon github">
+              <span class="tooltip">Github</span>
+              <a
+                class="none-link"
+                target="_blank"
+                href="https://github.com/neda-h/my-exercise-projects/tree/main/WeatherProject"
+                ><i class="fab fa-github"></i
+              ></a>
+            </li>
+          </ul>
+          <small
+            ><a
+              class="footer-link"
+              href="https://github.com/neda-h/my-exercise-projects/tree/main/WeatherProject"
+              >Open-source code </a
+            >by Neda Hosseiny</small
+          >
+        </div>
       </div>
     </div>
     <script src="src/app.js"></script>
