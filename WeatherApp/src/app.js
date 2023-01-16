@@ -1,4 +1,5 @@
-function formatDate(now) {
+function formatDate(timespan) {
+  let date = new Date(timespan);
   let days = [
     "Sunday",
     "Monday",
@@ -8,41 +9,37 @@ function formatDate(now) {
     "Friday",
     "Saturday",
   ];
-  let day = days[now.getDay()];
-  let hour = now.getHours();
-  let minutes = now.getMinutes().toString();
-  if (minutes.length == 1) {
-    minutes = "0" + minutes;
-  }
+  let day = days[date.getDay()];
+  let hour = date.getHours();
+  if (hour < 10) hour = `0${hour}`;
+  let minutes = date.getMinutes().toString();
+  if (minutes < 10) minutes = `0${minutes}`;
+
   let fullDate = ` ${day}  ${hour}:${minutes} `;
   return fullDate;
 }
-function setDate() {
-  let date = document.querySelector("#date-span");
-  date.innerHTML = formatDate(new Date());
-}
-setDate();
 
 function showTempreture(response) {
   event.preventDefault();
-  let currentDegree = document.querySelector("#temperature");
-  console.log(response.data.country);
   console.log(response);
-  console.log(response.data.daily[0].temperature.day);
-  currentDegree.innerHTML = Math.round(response.data.daily[0].temperature.day);
-  let city = document.querySelector("#city");
-  let country = response.data.country;
-  country = country.toString().split("(")[0];
-
-  city.innerHTML = `${response.data.city},${country}`;
-  let humidity = document.querySelector("#humidity");
-  humidity.innerHTML = response.data.daily[0].temperature.humidity;
-  let wind = document.querySelector("#wind-speed");
-  wind.innerHTML = response.data.daily[0].wind.speed;
-  let weatherDesc = document.querySelector("#weather-desc");
-  weatherDesc.innerHTML = response.data.daily[0].condition.description;
-  let icon = document.getElementById("icon");
-  icon.src = response.data.daily[0].condition.icon_url;
+  let temperatureElement = document.querySelector("#temperature");
+  let cityElement = document.querySelector("#city");
+  let countryElement = response.data.country;
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind-speed");
+  let descriptionElement = document.querySelector("#weather-desc");
+  let iconElement = document.getElementById("icon");
+  let dateElement = document.querySelector("#date-span");
+  temperatureElement.innerHTML = Math.round(
+    response.data.daily[0].temperature.day
+  );
+  countryElement = countryElement.toString().split("(")[0];
+  cityElement.innerHTML = `${response.data.city},${countryElement}`;
+  humidityElement.innerHTML = response.data.daily[0].temperature.humidity;
+  windElement.innerHTML = response.data.daily[0].wind.speed;
+  descriptionElement.innerHTML = response.data.daily[0].condition.description;
+  iconElement.src = response.data.daily[0].condition.icon_url;
+  dateElement.innerHTML = formatDate(response.data.daily[0].time * 1000);
 }
 let apiKey = "af253f0a8o48e8b1400ef66f4294tdf3";
 let apiUrl = "https://api.shecodes.io/weather/v1/forecast?units=metric";
