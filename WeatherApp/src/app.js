@@ -28,7 +28,7 @@ function showTempreture(response) {
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind-speed");
   let descriptionElement = document.querySelector("#weather-desc");
-  let iconElement = document.getElementById("icon");
+  let iconElement = document.querySelector("#icon");
   let dateElement = document.querySelector("#date-span");
   temperatureElement.innerHTML = Math.round(
     response.data.daily[0].temperature.day
@@ -36,15 +36,16 @@ function showTempreture(response) {
   countryElement = countryElement.toString().split("(")[0];
   cityElement.innerHTML = `${response.data.city},${countryElement}`;
   humidityElement.innerHTML = response.data.daily[0].temperature.humidity;
-  windElement.innerHTML = response.data.daily[0].wind.speed;
+  windElement.innerHTML = Math.round(response.data.daily[0].wind.speed);
   descriptionElement.innerHTML = response.data.daily[0].condition.description;
-  iconElement.src = response.data.daily[0].condition.icon_url;
+  iconElement.setAttribute("src", response.data.daily[0].condition.icon_url);
+  iconElement.setAttribute("alt", response.data.daily[0].condition.description);
   dateElement.innerHTML = formatDate(response.data.daily[0].time * 1000);
 }
 let apiKey = "af253f0a8o48e8b1400ef66f4294tdf3";
 let apiUrl = "https://api.shecodes.io/weather/v1/forecast?units=metric";
 
 function showFirst() {
-  axios.get(`${apiUrl}&query=sari&key=${apiKey}`).then(showTempreture);
+  axios.get(`${apiUrl}&query=paris&key=${apiKey}`).then(showTempreture);
 }
 showFirst();

@@ -20,39 +20,38 @@
       <div class="weather-wrapper">
         <div class="weather">
           <div class="row">
-            <div class="col">
-              <div class="d-flex weather-temperature">
-                <img
-                  src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-                  alt="Clear"
-                  id="icon"
-                />
-                <div>
-                  <strong id="temperature" class="temp">44</strong
-                  ><span class="units">°C | °F</span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-2"></div>
-                <div class="col-8">
-                  <ul>
-                    <li>Humidity: <span id="humidity"> 73</span>%</li>
-                    <li>Wind: <span id="wind-speed"> 10</span>km/h</li>
-                  </ul>
-                </div>
-                <div class="col-2"></div>
-              </div>
-            </div>
-            <div class="col mt-1">
-              <div class="row"><h1 id="city">Sari</h1></div>
+            <div class="mb-3">
+              <h1 id="city"></h1>
               <div class="row">
                 <ul>
-                  <li id="date-span">Monday 12:00</li>
-                  <li id="weather-desc">Mostly Cloudy</li>
+                  <li>last updated: <span id="date-span"></span></li>
+                  <li id="weather-desc"></li>
                 </ul>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="d-flex weather-temperature">
+                  <img
+                    src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+                    alt="Clear"
+                    id="icon"
+                  />
+                  <div>
+                    <strong id="temperature" class="temp"></strong
+                    ><span class="units">°C | °F</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <ul>
+                  <li>Humidity: <span id="humidity"></span>%</li>
+                  <li>Wind: <span id="wind-speed"></span> km/h</li>
+                </ul>
+              </div>
+            </div>
+            <div class="weather-forecast" id="forecast"></div>
           </div>
         </div>
         <small
