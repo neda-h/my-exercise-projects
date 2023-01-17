@@ -24,7 +24,20 @@ function formatDate(timespan) {
   let fullDate = ` ${day}  ${hour}:${minutes} `;
   return fullDate;
 }
-
+function getDayName(timespan) {
+  let date = new Date(timespan);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+  return day;
+}
 function showTempreture(response) {
   console.log(response);
   let temperatureElement = document.querySelector("#temperature");
@@ -46,6 +59,28 @@ function showTempreture(response) {
   iconElement.setAttribute("src", response.data.daily[0].condition.icon_url);
   iconElement.setAttribute("alt", response.data.daily[0].condition.description);
   dateElement.innerHTML = formatDate(response.data.daily[0].time * 1000);
+
+  for (let i = 1; i <= 6; i++) {
+    let dayElement = document.querySelector(`#week-day-${i}`);
+    let dayIconElement = document.querySelector(`#day-icon-${i}`);
+    let dayMaxTempElement = document.querySelector(`#next-day-temp-max-${i}`);
+    let dayMinTempElement = document.querySelector(`#next-day-temp-min-${i}`);
+    dayElement.innerHTML = getDayName(response.data.daily[i].time * 1000);
+    dayMaxTempElement.innerHTML = Math.round(
+      response.data.daily[i].temperature.maximum
+    );
+    dayMinTempElement.innerHTML = Math.round(
+      response.data.daily[i].temperature.minimum
+    );
+    dayIconElement.setAttribute(
+      "src",
+      response.data.daily[i].condition.icon_url
+    );
+    dayIconElement.setAttribute(
+      "alt",
+      response.data.daily[i].condition.description
+    );
+  }
 }
 function search(city) {
   let apiKey = "af253f0a8o48e8b1400ef66f4294tdf3";
