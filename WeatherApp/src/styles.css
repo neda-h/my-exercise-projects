@@ -27,6 +27,10 @@ li::first-letter {
 .input-contain {
   position: relative;
 }
+a {
+  text-decoration: none;
+}
+
 input {
   height: 3rem;
   width: 40rem;
@@ -120,6 +124,14 @@ input,
   box-shadow: rgba(80, 63, 205, 0.5) 0 1px 10px;
   transition-duration: 0.1s;
 }
+.disable-link {
+  color: rgb(33, 33, 33);
+  cursor: default;
+}
+
+.disable-link :hover {
+  text-decoration: none;
+}
 
 .weather-wrapper {
   max-width: 600px;
@@ -169,12 +181,12 @@ input,
   font-size: 14px;
 }
 .none-link {
-  color: inherit; /* blue colors for links too */
-  text-decoration: inherit; /* no underline */
+  color: inherit;
+  text-decoration: inherit;
 }
 .none-link:hover {
-  color: inherit; /* blue colors for links too */
-  text-decoration: inherit; /* no underline */
+  color: inherit;
+  text-decoration: inherit;
 }
 
 .footer-link {

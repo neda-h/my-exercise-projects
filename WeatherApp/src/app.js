@@ -1,9 +1,3 @@
-let input_element = document.querySelector("#search-text");
-input_element.setAttribute("value", input_element.value);
-input_element.addEventListener("keyup", () => {
-  input_element.setAttribute("value", input_element.value);
-});
-
 function formatDate(timespan) {
   let date = new Date(timespan);
   let days = [
@@ -38,6 +32,7 @@ function getDayName(timespan) {
   let day = days[date.getDay()];
   return day;
 }
+
 function showTempreture(response) {
   console.log(response);
   let temperatureElement = document.querySelector("#temperature");
@@ -48,9 +43,9 @@ function showTempreture(response) {
   let descriptionElement = document.querySelector("#weather-desc");
   let iconElement = document.querySelector("#icon");
   let dateElement = document.querySelector("#date-span");
-  temperatureElement.innerHTML = Math.round(
-    response.data.daily[0].temperature.day
-  );
+
+  celsiusTemperature = response.data.daily[0].temperature.day;
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
   countryElement = countryElement.toString().split("(")[0];
   cityElement.innerHTML = `${response.data.city},${countryElement}`;
   humidityElement.innerHTML = response.data.daily[0].temperature.humidity;
@@ -94,8 +89,38 @@ function handleSubmit(event) {
   city = city.value;
   search(city);
 }
+function changeToFahrenheitTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+
+  celsiusLink.classList.remove("disable-link");
+  fahrenheitLink.classList.add("disable-link");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function changeToCelsiusTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("disable-link");
+  fahrenheitLink.classList.remove("disable-link");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
+let input_element = document.querySelector("#search-text");
+input_element.setAttribute("value", input_element.value);
+input_element.addEventListener("keyup", () => {
+  input_element.setAttribute("value", input_element.value);
+});
+let celsiusTemperature = null;
 
 search("paris");
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", changeToFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", changeToCelsiusTemperature);

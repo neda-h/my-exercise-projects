@@ -64,13 +64,16 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row" id="current-temp-div">
               <div class="col-6">
                 <div class="d-flex weather-temperature">
                   <img id="icon" />
                   <div>
                     <strong id="temperature" class="temp"></strong
-                    ><span class="units">°C | °F</span>
+                    ><span class="units"
+                      ><a href="" class="disable-link" id="celsius-link">°C</a>
+                      | <a href="" id="fahrenheit-link">°F</a></span
+                    >
                   </div>
                 </div>
               </div>
