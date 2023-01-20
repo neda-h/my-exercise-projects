@@ -78,29 +78,31 @@ function changeToCelsiusTemperature(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 function displayForecast(data) {
-  let length = data.daily.length - 1;
+  let forecast = data.daily;
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row" id="forecast">`;
-  for (let i = 1; i <= length; i++) {
-    let dayName = getDayName(data.daily[i].time * 1000);
-    forecastHTML += `<div class="col-2">
-                  <div class="next-day" id="week-day-${i}">${dayName}</div>
-                  <img src="${
-                    data.daily[i].condition.icon_url
-                  }" id="day-icon-${i}" alt="${
-      data.daily[i].condition.description
-    }" />
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML += `<div class="col-2">
+                  <div class="next-day">${getDayName(
+                    forecastDay.time * 1000
+                  )}</div>
+                  <img src="${forecastDay.condition.icon_url}"  alt="${
+        forecastDay.condition.description
+      }" />
                   <div class="next-temp">
-                    <span class="next-day-max" id="next-day-temp-max-${i}">${Math.round(
-      data.daily[i].temperature.maximum
-    )}</span>
-                    <span class="next-day-min" id="next-day-temp-min-${i}">${Math.round(
-      data.daily[i].temperature.minimum
-    )}</span>
+                    <span class="next-day-max" >${Math.round(
+                      forecastDay.temperature.maximum
+                    )}</span>
+                    <span class="next-day-min" >${Math.round(
+                      forecastDay.temperature.minimum
+                    )}</span>
                   </div>
                 </div>`;
-  }
+    }
+  });
+
   forecastHTML += "</div>";
   forecastElement.innerHTML = forecastHTML;
 }
