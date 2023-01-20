@@ -20,15 +20,7 @@ function formatDate(timespan) {
 }
 function getDayName(timespan) {
   let date = new Date(timespan);
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  let days = ["Sun", "Mo", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let day = days[date.getDay()];
   return day;
 }
@@ -54,28 +46,7 @@ function showTempreture(response) {
   iconElement.setAttribute("src", response.data.daily[0].condition.icon_url);
   iconElement.setAttribute("alt", response.data.daily[0].condition.description);
   dateElement.innerHTML = formatDate(response.data.daily[0].time * 1000);
-
-  for (let i = 1; i <= 6; i++) {
-    let dayElement = document.querySelector(`#week-day-${i}`);
-    let dayIconElement = document.querySelector(`#day-icon-${i}`);
-    let dayMaxTempElement = document.querySelector(`#next-day-temp-max-${i}`);
-    let dayMinTempElement = document.querySelector(`#next-day-temp-min-${i}`);
-    dayElement.innerHTML = getDayName(response.data.daily[i].time * 1000);
-    dayMaxTempElement.innerHTML = Math.round(
-      response.data.daily[i].temperature.maximum
-    );
-    dayMinTempElement.innerHTML = Math.round(
-      response.data.daily[i].temperature.minimum
-    );
-    dayIconElement.setAttribute(
-      "src",
-      response.data.daily[i].condition.icon_url
-    );
-    dayIconElement.setAttribute(
-      "alt",
-      response.data.daily[i].condition.description
-    );
-  }
+  displayForecast(response.data);
 }
 function search(city) {
   let apiKey = "af253f0a8o48e8b1400ef66f4294tdf3";
@@ -106,17 +77,27 @@ function changeToCelsiusTemperature(event) {
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
-function displayForecast() {
+function displayForecast(data) {
+  let length = data.daily.length - 1;
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row" id="forecast">`;
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= length; i++) {
+    let dayName = getDayName(data.daily[i].time * 1000);
     forecastHTML += `<div class="col-2">
-                  <div class="next-day" id="week-day-${i}"></div>
-                  <img id="day-icon-${i}" />
+                  <div class="next-day" id="week-day-${i}">${dayName}</div>
+                  <img src="${
+                    data.daily[i].condition.icon_url
+                  }" id="day-icon-${i}" alt="${
+      data.daily[i].condition.description
+    }" />
                   <div class="next-temp">
-                    <span class="next-day-max" id="next-day-temp-max-${i}"></span>
-                    <span class="next-day-min" id="next-day-temp-min-${i}"></span>
+                    <span class="next-day-max" id="next-day-temp-max-${i}">${Math.round(
+      data.daily[i].temperature.maximum
+    )}</span>
+                    <span class="next-day-min" id="next-day-temp-min-${i}">${Math.round(
+      data.daily[i].temperature.minimum
+    )}</span>
                   </div>
                 </div>`;
   }
@@ -131,7 +112,6 @@ input_element.addEventListener("keyup", () => {
 let celsiusTemperature = null;
 
 search("paris");
-displayForecast();
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
