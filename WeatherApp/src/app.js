@@ -68,6 +68,13 @@ function changeToFahrenheitTemperature(event) {
   fahrenheitLink.classList.add("disable-link");
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+
+  for (let i = 0; i < maxTempsInCelsius.length; i++) {
+    let nextDayMax = document.querySelector(`#next-day-temp-max-${i}`);
+    let nextDayMin = document.querySelector(`#next-day-temp-min-${i}`);
+    nextDayMax.innerHTML = Math.round((maxTempsInCelsius[i] * 9) / 5 + 32);
+    nextDayMin.innerHTML = Math.round((minTempsInCelsius[i] * 9) / 5 + 32);
+  }
 }
 
 function changeToCelsiusTemperature(event) {
@@ -76,14 +83,24 @@ function changeToCelsiusTemperature(event) {
   fahrenheitLink.classList.remove("disable-link");
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
+  for (let i = 0; i < maxTempsInCelsius.length; i++) {
+    let nextDayMax = document.querySelector(`#next-day-temp-max-${i}`);
+    let nextDayMin = document.querySelector(`#next-day-temp-min-${i}`);
+    nextDayMax.innerHTML = maxTempsInCelsius[i];
+    nextDayMin.innerHTML = minTempsInCelsius[i];
+  }
 }
+const maxTempsInCelsius = [];
+const minTempsInCelsius = [];
 function displayForecast(data) {
   let forecast = data.daily;
   let forecastElement = document.querySelector("#forecast");
-
   let forecastHTML = `<div class="row" id="forecast">`;
+
   forecast.forEach(function (forecastDay, index) {
     if (index < 6) {
+      maxTempsInCelsius.push(Math.round(forecastDay.temperature.maximum));
+      minTempsInCelsius.push(Math.round(forecastDay.temperature.minimum));
       forecastHTML += `<div class="col-2">
                   <div class="next-day">${getDayName(
                     forecastDay.time * 1000
@@ -92,12 +109,12 @@ function displayForecast(data) {
         forecastDay.condition.description
       }" />
                   <div class="next-temp">
-                    <span class="next-day-max" >${Math.round(
-                      forecastDay.temperature.maximum
-                    )}</span>
-                    <span class="next-day-min" >${Math.round(
-                      forecastDay.temperature.minimum
-                    )}</span>
+                    <span class="next-day-max" id="next-day-temp-max-${index}">${Math.round(
+        forecastDay.temperature.maximum
+      )}</span>
+                    <span class="next-day-min" id="next-day-temp-min-${index}">${Math.round(
+        forecastDay.temperature.minimum
+      )}</span>
                   </div>
                 </div>`;
     }
