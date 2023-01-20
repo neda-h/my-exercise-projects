@@ -106,7 +106,23 @@ function changeToCelsiusTemperature(event) {
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
 
+  let forecastHTML = `<div class="row" id="forecast">`;
+  for (let i = 1; i <= 6; i++) {
+    forecastHTML += `<div class="col-2">
+                  <div class="next-day" id="week-day-${i}"></div>
+                  <img id="day-icon-${i}" />
+                  <div class="next-temp">
+                    <span class="next-day-max" id="next-day-temp-max-${i}"></span>
+                    <span class="next-day-min" id="next-day-temp-min-${i}"></span>
+                  </div>
+                </div>`;
+  }
+  forecastHTML += "</div>";
+  forecastElement.innerHTML = forecastHTML;
+}
 let input_element = document.querySelector("#search-text");
 input_element.setAttribute("value", input_element.value);
 input_element.addEventListener("keyup", () => {
@@ -115,6 +131,7 @@ input_element.addEventListener("keyup", () => {
 let celsiusTemperature = null;
 
 search("paris");
+displayForecast();
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
