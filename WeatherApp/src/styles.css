@@ -131,6 +131,7 @@ input,
 
 .disable-link :hover {
   text-decoration: none;
+  color: rgb(33, 33, 33);
 }
 
 .weather-wrapper {

@@ -52,6 +52,10 @@ function search(city) {
   let apiKey = "af253f0a8o48e8b1400ef66f4294tdf3";
   let apiUrl = "https://api.shecodes.io/weather/v1/forecast?units=metric";
 
+  celsiusLink.classList.add("disable-link");
+  fahrenheitLink.classList.remove("disable-link");
+  maxTempsInCelsius = [];
+  minTempsInCelsius = [];
   axios.get(`${apiUrl}&query=${city}&key=${apiKey}`).then(showTempreture);
 }
 function handleSubmit(event) {
@@ -90,8 +94,8 @@ function changeToCelsiusTemperature(event) {
     nextDayMin.innerHTML = minTempsInCelsius[i];
   }
 }
-const maxTempsInCelsius = [];
-const minTempsInCelsius = [];
+let maxTempsInCelsius = [];
+let minTempsInCelsius = [];
 function displayForecast(data) {
   let forecast = data.daily;
   let forecastElement = document.querySelector("#forecast");
@@ -130,8 +134,6 @@ input_element.addEventListener("keyup", () => {
 });
 let celsiusTemperature = null;
 
-search("paris");
-
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
@@ -140,3 +142,4 @@ fahrenheitLink.addEventListener("click", changeToFahrenheitTemperature);
 
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", changeToCelsiusTemperature);
+search("paris");
